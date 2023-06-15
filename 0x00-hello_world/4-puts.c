@@ -1,7 +1,6 @@
 /*
  * File: 4-puts.c
  * Auth: Emenike Claire
- <clairetochi1@gmail.com>
  */
 
 #include <studio.h>
