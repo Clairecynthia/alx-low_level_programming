@@ -2,52 +2,80 @@
 #include <stdlib.h>
 
 /**
- * is_position_number - check if a string is a position number
- * @str: the string to check
+ * _atoi - converts a string to an integer
+ * @s: the string to be converted
  *
- * Return: 1 if the string is a positive number, 0 otherwise
+ * Return: the int converted from the string
  */
-int is_positive_number(char *str)
+int _atoi(char *s)
 {
-	int i = 0;
+	int i, d, n, len, f, digit;
 
-	while (str[i])
+	i = 0;
+	d = 0;
+	n = 0;
+	len = 0;
+	f = 0;
+	digit = 0;
+
+	while (s[len] != '\0')
+		len++;
+
+	while (i < len && f == 0)
 	{
-		if (str[i] < '0' || str[i] > '9')
-			return (0);
+		if (s[i] == '-')
+			++d;
+
+		if (s[i] >= '0' && s[i] <= '9')
+		{
+			digit = s[i] - '0';
+			if (d % 2)
+				digit = -digit;
+			n = n * 10 + digit;
+			f = 1;
+			if (s[i + 1] < '0' || s[i + 1] > '9')
+				break;
+			f = 0;
+		}
 		i++;
 	}
 
-	return (1);
+	if (f == 0)
+		return (0);
+
+	return (n);
 }
 
 /**
- * main - entry point of the program
- * @argc: the argument count
- * @argv: an array of pointers to the program arguments
+ * main - adds two positive number
+ * @argc: number of argument
+ * @argv: an array of arguments
  *
- * Return: 0 on success, 1 on error
+ * Return: 0 (Success), or 1 (Success)
  */
 int main(int argc, char *argv[])
 {
-	int i, sum = 0;
-
-	if (argc < 2)
-	{
-		printf("0\n");
-		return (0);
-	}
+	int sum, num, i, j, k;
+	sum = 0;
 
 	for (i = 1; i < argc; i++)
 	{
-		if (is_positive_number(argv[i]))
+		for (j = 0; argv[i][j] != '\0'; j++)
 		{
-			sum += atoi(argv[i]);
+			if (argv[i][j] > '9' || argv[i][j] < '0')
+			{
+				puts("Error");
+				return (1);
+			}
 		}
-		else
+	}
+
+	for (k = 1; k < argc; k++)
+	{
+		num = _atoi(argv[k]);
+		if (num >= 0)
 		{
-			printf("Error\n");
-			return (1);
+			sum += num;
 		}
 	}
 
